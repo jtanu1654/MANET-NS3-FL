@@ -16,7 +16,7 @@ To evaluate and compare routing protocols based on:
 
 -  Throughput  
 -  Packet Delivery Ratio (PDR)  
-- ⏱ End-to-End Delay  
+-  End-to-End Delay  
 
 ---
 
@@ -132,28 +132,28 @@ python3 federated_learning.py
 ---
 
 
-## 📊 Output
+##  Output
 
-- 📈 `throughput.png`  
-- ⏱ `delay.png`  
-- 📦 `pdr.png`  
-- 🔍 `confusion_matrix.png`  
-- 📊 `accuracy_bar.png`  
-- 📉 `accuracy_vs_nodes.png`  
-- 📄 `dataset.csv`  
-
----
-
-## 🧠 Results
-
-- ✅ Federated Learning Accuracy: **~91%**  
-- 📈 OLSR performs better in dense networks  
-- ⚡ AODV performs well in moderate mobility  
-- 📉 DSDV shows higher delay in dynamic conditions  
+-  `throughput.png`  
+-  `delay.png`  
+-  `pdr.png`  
+-  `confusion_matrix.png`  
+-  `accuracy_bar.png`  
+-  `accuracy_vs_nodes.png`  
+-  `dataset.csv`  
 
 ---
 
-## 🏁 Conclusion
+##  Results
+
+-  Federated Learning Accuracy: **~91%**  
+-  OLSR performs better in dense networks  
+-  AODV performs well in moderate mobility  
+-  DSDV shows higher delay in dynamic conditions  
+
+---
+
+##  Conclusion
 
 This project demonstrates the integration of **network simulation and machine learning** to improve routing decisions in MANETs.  
 
