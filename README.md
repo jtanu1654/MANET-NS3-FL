@@ -118,30 +118,30 @@ python3 federated_learning.py
 
 ---
 
-**##  Output**
 
--  `throughput.png`  
--  `delay.png`  
--  `pdr.png`  
--  `confusion_matrix.png`  
--  `accuracy_bar.png`  
--  `accuracy_vs_nodes.png`  
--  `dataset.csv`  
+## 📊 Output
 
----
-
-**##  Results**
-
--  Federated Learning Accuracy: **~91%**  
--  OLSR performs better in dense networks  
--  AODV performs well in moderate mobility  
--  DSDV shows higher delay in dynamic conditions  
+- 📈 `throughput.png`  
+- ⏱ `delay.png`  
+- 📦 `pdr.png`  
+- 🔍 `confusion_matrix.png`  
+- 📊 `accuracy_bar.png`  
+- 📉 `accuracy_vs_nodes.png`  
+- 📄 `dataset.csv`  
 
 ---
 
-**##  Conclusion**
+## 🧠 Results
+
+- ✅ Federated Learning Accuracy: **~91%**  
+- 📈 OLSR performs better in dense networks  
+- ⚡ AODV performs well in moderate mobility  
+- 📉 DSDV shows higher delay in dynamic conditions  
+
+---
+
+## 🏁 Conclusion
 
 This project demonstrates the integration of **network simulation and machine learning** to improve routing decisions in MANETs.  
 
 Federated Learning enables **distributed model training** and achieves high accuracy in predicting the best routing protocol based on network conditions.
-
