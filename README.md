@@ -118,7 +118,7 @@ python3 federated_learning.py
 
 ---
 
-##  Output
+**##  Output**
 
 -  `throughput.png`  
 -  `delay.png`  
@@ -130,7 +130,7 @@ python3 federated_learning.py
 
 ---
 
-##  Results
+**##  Results**
 
 -  Federated Learning Accuracy: **~91%**  
 -  OLSR performs better in dense networks  
@@ -139,7 +139,7 @@ python3 federated_learning.py
 
 ---
 
-##  Conclusion
+**##  Conclusion**
 
 This project demonstrates the integration of **network simulation and machine learning** to improve routing decisions in MANETs.  
 
