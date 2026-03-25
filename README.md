@@ -68,54 +68,66 @@ wget https://www.nsnam.org/releases/ns-allinone-3.37.tar.bz2
 ### 2. Extract
 ```bash
 tar -xjf ns-allinone-3.37.tar.bz2
+```
 
 ### 3. Go to directory
 ```bash
 cd ns-allinone-3.37/ns-3.37
+```
 
 ### 4. Install dependency
 ```bash
 sudo apt update
 sudo apt install -y build-essential gcc g++ cmake make python3 python3-dev git libsqlite3-dev libxml2-dev ccache
+```
 
 ### 5. Build ns-3
 ```bash
 ./ns3 configure --enable-examples
 ./ns3 build
+```
 
 ### 6. Test installation
 ```bash
 ./ns3 run hello-simulator
+```
 
 ### 7. Create simulation file
 ```bash
 cd scratch
 vim manet.cc
+```
 
 ### 8. Run simulation for different protocols
 #### AODV
 ```bash
 ./ns3 run "scratch/manet --protocol=AODV --nodes=50 --speed=20"
+```
 
 #### OLSR
 ```bash
 ./ns3 run "scratch/manet --protocol=OLSR --nodes=50 --speed=20"
+```
 
 #### DSDV
 ```bash
 ./ns3 run "scratch/manet --protocol=DSDV--nodes=50 --speed=20"
+```
 
 ### 9. Generate Graphs
+```bash
 python auto_analysis.py
+```
 
 ### 10. Generate Dataset
 ```bash
 python3 dataset_generator.py
-
+```
 
 ### 11. Train Model & Predict Best Protocol
 ```bash
 python3 federated_learning.py
+```
 
 ---
 
