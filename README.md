@@ -1,122 +1,146 @@
-# The Network Simulator, Version 3
+#  MANET Routing Protocol Comparison using ns-3
 
-## Table of Contents
+##  Project Overview
+This project analyzes and compares the performance of three major MANET (Mobile Ad Hoc Network) routing protocols:
 
-1) [An overview](#an-open-source-project)
-2) [Building ns-3](#building-ns-3)
-3) [Running ns-3](#running-ns-3)
-4) [Getting access to the ns-3 documentation](#getting-access-to-the-ns-3-documentation)
-5) [Working with the development version of ns-3](#working-with-the-development-version-of-ns-3)
+- **AODV (Ad hoc On-Demand Distance Vector)**
+- **OLSR (Optimized Link State Routing)**
+- **DSDV (Destination-Sequenced Distance Vector)**
 
-> **NOTE**: Much more substantial information about ns-3 can be found at
-<https://www.nsnam.org>
+The simulation is implemented using the **ns-3 network simulator**, and results are enhanced using **Federated Learning** to predict the best routing protocol under dynamic network conditions.
 
-## An Open Source project
+---
 
-ns-3 is a free open source project aiming to build a discrete-event
-network simulator targeted for simulation research and education.
-This is a collaborative project; we hope that
-the missing pieces of the models we have not yet implemented
-will be contributed by the community in an open collaboration
-process.
+##  Objective
+To evaluate and compare routing protocols based on:
 
-The process of contributing to the ns-3 project varies with
-the people involved, the amount of time they can invest
-and the type of model they want to work on, but the current
-process that the project tries to follow is described here:
-<https://www.nsnam.org/developers/contributing-code/>
+-  Throughput  
+-  Packet Delivery Ratio (PDR)  
+- ⏱ End-to-End Delay  
 
-This README excerpts some details from a more extensive
-tutorial that is maintained at:
-<https://www.nsnam.org/documentation/latest/>
+---
 
-## Building ns-3
+## Tools & Technologies
 
-The code for the framework and the default models provided
-by ns-3 is built as a set of libraries. User simulations
-are expected to be written as simple programs that make
-use of these ns-3 libraries.
+- **Simulator:** ns-3.37  
+- **Languages:** C++, Python  
+- **Machine Learning:** Random Forest (Federated Learning)  
+- **OS:** Ubuntu 24.04  
+- **Compiler:** gcc/g++  
+- **Libraries:** pandas, numpy, matplotlib, scikit-learn  
 
-To build the set of default libraries and the example
-programs included in this package, you need to use the
-tool 'ns3'. Detailed information on how to use ns3 is
-included in the file doc/build.txt
+---
 
-However, the real quick and dirty way to get started is to
-type the command
+##  Simulation Parameters
 
-```shell
+| Parameter            | Value |
+|---------------------|------|
+| Number of Nodes     | 20–60 |
+| Network Type        | MANET |
+| Mobility Model      | Random Waypoint |
+| Speed               | 1–20 m/s |
+| Pause Time          | 0.5 sec |
+| Traffic Type        | UDP |
+| Packet Size         | 1024 bytes |
+| Simulation Time     | 12 sec |
+| WiFi Standard       | 802.11b |
+
+---
+
+## Features
+
+-  NS-3 based simulation  
+-  Automated dataset generation  
+-  Graph visualization (Throughput, Delay, PDR)  
+-  Federated Learning model  
+-  Protocol prediction with ~91% accuracy  
+
+---
+
+## How to Run (Step-by-Step)
+
+### 1. Download ns-3
+```bash
+cd ~
+wget https://www.nsnam.org/releases/ns-allinone-3.37.tar.bz2
+
+### 2. Extract
+```bash
+tar -xjf ns-allinone-3.37.tar.bz2
+
+### 3. Go to directory
+```bash
+cd ns-allinone-3.37/ns-3.37
+
+### 4. Install dependency
+```bash
+sudo apt update
+sudo apt install -y build-essential gcc g++ cmake make python3 python3-dev git libsqlite3-dev libxml2-dev ccache
+
+### 5. Build ns-3
+```bash
 ./ns3 configure --enable-examples
-```
+./ns3 build
 
-followed by
+### 6. Test installation
+```bash
+./ns3 run hello-simulator
 
-```shell
-./ns3
-```
+### 7. Create simulation file
+```bash
+cd scratch
+vim manet.cc
 
-in the directory which contains this README file. The files
-built will be copied in the build/ directory.
+### 8. Run simulation for different protocols
+#### AODV
+```bash
+./ns3 run "scratch/manet --protocol=AODV --nodes=50 --speed=20"
 
-The current codebase is expected to build and run on the
-set of platforms listed in the [release notes](RELEASE_NOTES.md)
-file.
+#### OLSR
+```bash
+./ns3 run "scratch/manet --protocol=OLSR --nodes=50 --speed=20"
 
-Other platforms may or may not work: we welcome patches to
-improve the portability of the code to these other platforms.
+#### DSDV
+```bash
+./ns3 run "scratch/manet --protocol=DSDV--nodes=50 --speed=20"
 
-## Running ns-3
+### 9. Generate Graphs
+python auto_analysis.py
 
-On recent Linux systems, once you have built ns-3 (with examples
-enabled), it should be easy to run the sample programs with the
-following command, such as:
+### 10. Generate Dataset
+```bash
+python3 dataset_generator.py
 
-```shell
-./ns3 run simple-global-routing
-```
 
-That program should generate a `simple-global-routing.tr` text
-trace file and a set of `simple-global-routing-xx-xx.pcap` binary
-pcap trace files, which can be read by `tcpdump -tt -r filename.pcap`
-The program source can be found in the examples/routing directory.
+### 11. Train Model & Predict Best Protocol
+```bash
+python3 federated_learning.py
 
-## Getting access to the ns-3 documentation
 
-Once you have verified that your build of ns-3 works by running
-the simple-point-to-point example as outlined in 3) above, it is
-quite likely that you will want to get started on reading
-some ns-3 documentation.
+##  Output
 
-All of that documentation should always be available from
-the ns-3 website: <https://www.nsnam.org/documentation/>.
+-  `throughput.png`  
+-  `delay.png`  
+-  `pdr.png`  
+-  `confusion_matrix.png`  
+-  `accuracy_bar.png`  
+-  `accuracy_vs_nodes.png`  
+-  `dataset.csv`  
 
-This documentation includes:
+---
 
-- a tutorial
-- a reference manual
-- models in the ns-3 model library
-- a wiki for user-contributed tips: <https://www.nsnam.org/wiki/>
-- API documentation generated using doxygen: this is
-  a reference manual, most likely not very well suited
-  as introductory text:
-  <https://www.nsnam.org/doxygen/index.html>
+##  Results
 
-## Working with the development version of ns-3
+-  Federated Learning Accuracy: **~91%**  
+-  OLSR performs better in dense networks  
+-  AODV performs well in moderate mobility  
+-  DSDV shows higher delay in dynamic conditions  
 
-If you want to download and use the development version of ns-3, you
-need to use the tool `git`. A quick and dirty cheat sheet is included
-in the manual, but reading through the git
-tutorials found in the Internet is usually a good idea if you are not
-familiar with it.
+---
 
-If you have successfully installed git, you can get
-a copy of the development version with the following command:
+##  Conclusion
 
-```shell
-git clone https://gitlab.com/nsnam/ns-3-dev.git
-```
+This project demonstrates the integration of **network simulation and machine learning** to improve routing decisions in MANETs.  
 
-However, we recommend to follow the Gitlab guidelines for starters,
-that includes creating a Gitlab account, forking the ns-3-dev project
-under the new account's name, and then cloning the forked repository.
-You can find more information in the [manual](https://www.nsnam.org/docs/manual/html/working-with-git.html).
+Federated Learning enables **distributed model training** and achieves high accuracy in predicting the best routing protocol based on network conditions.
+
