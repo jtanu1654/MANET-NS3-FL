@@ -63,6 +63,7 @@ To evaluate and compare routing protocols based on:
 ```bash
 cd ~
 wget https://www.nsnam.org/releases/ns-allinone-3.37.tar.bz2
+```
 
 ### 2. Extract
 ```bash
