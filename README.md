@@ -116,6 +116,7 @@ python3 dataset_generator.py
 ```bash
 python3 federated_learning.py
 
+---
 
 ##  Output
 
