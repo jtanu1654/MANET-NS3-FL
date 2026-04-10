@@ -1,0 +1,17 @@
+# System Dependencies for ns-3 MANET Project
+
+build-essential
+gcc
+g++
+cmake
+make
+
+python3
+python3-dev
+
+git
+
+libsqlite3-dev
+libxml2-dev
+
+ccache

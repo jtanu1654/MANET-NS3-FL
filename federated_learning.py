@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.model_selection import train_test_split
 
 # -------------------------
 # LOAD DATASET
@@ -23,11 +24,29 @@ features = ["Nodes", "Speed", "Throughput", "PDR", "Delay"]
 # Shuffle dataset
 df = df.sample(frac=1, random_state=42).reset_index(drop=True)
 
-# Split into 3 clients
-clients = [df.iloc[i::3] for i in range(3)]
+# -------------------------
+# TRAIN-TEST SPLIT
+# -------------------------
+train_df, test_df = train_test_split(df, test_size=0.3, random_state=42)
 
 # -------------------------
-# TRAIN FL MODELS
+# CREATE CLIENTS (NODE-BASED FL)
+# -------------------------
+clients = []
+
+unique_nodes = train_df["Nodes"].unique()
+
+for node in unique_nodes:
+    client_data = train_df[train_df["Nodes"] == node]
+    
+    # Avoid too small datasets
+    if len(client_data) > 5:
+        clients.append(client_data)
+
+print(f"✅ Total Clients Created: {len(clients)}")
+
+# -------------------------
+# TRAIN MODELS (LOCAL TRAINING)
 # -------------------------
 models = []
 
@@ -39,21 +58,21 @@ for client in clients:
     model.fit(X, y)
     models.append(model)
 
-print("✅ FL models ready")
+print("✅ FL models trained")
 
 # -------------------------
-# FEDERATED PREDICTION (FIXED)
+# FEDERATED PREDICTION
 # -------------------------
 def federated_predict(X):
-    preds = np.array([m.predict(X)[0] for m in models])  # take scalar directly
-    return np.bincount(preds).argmax()  # majority voting
+    preds = np.array([m.predict(X)[0] for m in models])
+    return np.bincount(preds).argmax()
 
 # -------------------------
-# COMPARISON
+# TESTING & COMPARISON
 # -------------------------
 results = []
 
-for _, row in df.iterrows():
+for _, row in test_df.iterrows():
     X_test = pd.DataFrame([[
         row["Nodes"], row["Speed"],
         row["Throughput"], row["PDR"], row["Delay"]
@@ -74,9 +93,12 @@ for _, row in df.iterrows():
 
 comp_df = pd.DataFrame(results)
 
-print("\n===== RESULTS =====")
+print("\n===== SAMPLE RESULTS =====")
 print(comp_df.head())
 
+# -------------------------
+# ACCURACY
+# -------------------------
 accuracy = comp_df["Match"].mean() * 100
 print(f"\n✅ FL Accuracy: {accuracy:.2f}%")
 

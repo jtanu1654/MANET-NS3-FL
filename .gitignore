@@ -1,0 +1,22 @@
+# Ignore ns-3 core files
+build/
+cmake-cache/
+bindings/
+build-support/
+contrib/
+doc/
+examples/
+src/
+utils/
+
+# Ignore binaries & temp
+ns3
+*.o
+*.log
+*.pyc
+__pycache__/
+
+# Ignore environment
+venv/
+.vscode/
+.lock-ns3_linux_build
